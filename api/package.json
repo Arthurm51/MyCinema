@@ -1,0 +1,21 @@
+{
+  "name": "mycinemaapi",
+  "version": "1.0.0",
+  "description": "lista de series e filmes",
+  "main": "src/index.js",
+  "author": "Arthur Machado",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "8",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.4"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  }
+}
