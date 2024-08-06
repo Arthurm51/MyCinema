@@ -96,6 +96,18 @@ class ProductionController {
 
     response.json(updateProduction);
   }
+
+  async delete(request, response) {
+    const { id } = request.params;
+    const productionExists = await ProductionsRepositories.findById(id);
+    if (!productionExists) {
+      return response.status(404).json({ error: 'Production not found' });
+    }
+
+    await ProductionsRepositories.delete(id);
+
+    response.sendStatus(204);
+  }
 }
 
 module.exports = new ProductionController();

@@ -98,6 +98,13 @@ class ProductionsRepositories {
       resolve(updatedProduction);
     });
   }
+
+  delete(id) {
+    return new Promise((resolve) => {
+      // eslint-disable-next-line no-shadow
+      resolve(productions = productions.filter((productions) => productions.id !== id));
+    });
+  }
 }
 
 module.exports = new ProductionsRepositories();
