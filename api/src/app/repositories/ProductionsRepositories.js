@@ -1,6 +1,6 @@
 const { v4 } = require('uuid');
 
-const productions = [
+let productions = [
   {
     id: v4(),
     name: 'Velozes e furiosos',
@@ -69,6 +69,33 @@ class ProductionsRepositories {
       // Adiciona a nova produção ao "banco de dados"
       productions.push(newProduction);
       resolve(newProduction);
+    });
+  }
+
+  update(id, {
+    name, category, gender, year, rating, comment, sinopse, director, cast, ageRating, duration, seasons,
+  }) {
+    return new Promise((resolve) => {
+      const updatedProduction = {
+        id,
+        name,
+        category,
+        gender,
+        year,
+        rating,
+        comment,
+        sinopse,
+        director,
+        cast,
+        ageRating,
+        duration,
+        seasons,
+      };
+
+      productions = productions.map((production) => (
+        production.id === id ? updatedProduction : production
+      ));
+      resolve(updatedProduction);
     });
   }
 }
