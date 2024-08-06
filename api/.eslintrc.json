@@ -15,7 +15,8 @@
     "no-unused-vars": "warn",
     "import/no-extraneous-dependencies": "off",
     "class-methods-use-this": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "consistent-return": "off"
   },
   "settings": {
   }
