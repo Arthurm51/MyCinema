@@ -19,12 +19,12 @@ class ValidateTypes {
   validateCategory(category, seasons, duration) {
     let errors = [];
 
-    if (category === 'Serie' || category === 'Desenho' || category === 'Anime') {
+    if (category.toLowerCase() === 'serie' || category.toLowerCase() === 'desenho' || category.toLowerCase() === 'anime') {
       errors = this.isNumber({ seasons });
       if (typeof duration !== 'undefined') {
         errors.push(`Duration não é um parametro para a categoria '${category}'`);
       }
-    } else if (category === 'Filme') {
+    } else if (category.toLowerCase() === 'filme') {
       errors = this.isNumber({ duration });
       if (typeof seasons !== 'undefined') {
         errors.push(`Seasons não é um parametro para a categoria '${category}'`);
