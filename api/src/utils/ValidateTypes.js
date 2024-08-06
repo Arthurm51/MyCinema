@@ -34,6 +34,45 @@ class ValidateTypes {
     }
     return errors;
   }
+
+  validateFields(data, response) {
+    const {
+      name, category, gender, sinopse, director, cast, year, rating, ageRating, seasons, duration,
+    } = data;
+
+    // Verifica se há campos obrigatórios ausentes
+    const requiredFields = {
+      name, category, gender, sinopse, director, cast,
+    };
+    // Object.entries transforma o objeto requiredFields em uma matriz de pares [chave, valor]. ex: name(chave): 'homem aranha'(valor)
+    // Verifica se algum campo obrigatório está ausente
+    // eslint-disable-next-line no-unused-vars
+    const missingField = Object.entries(requiredFields).find(([field, value]) => !value);
+
+    // Se algum campo estiver ausente, retorna um erro 400 com o nome do campo
+    // Desestruturação de arrays do JavaScript para extrair o primeiro elemento do array missingField que está em cima. (field)
+    if (missingField) {
+      const [field] = missingField;
+      return response.status(400).json({ error: `Campo ${field} é obrigatório.` });
+    }
+
+    // Valida se os campos numéricos têm o tipo correto
+    const errorsTypeNumber = this.isNumber({ year, rating, ageRating });
+
+    if (errorsTypeNumber.length > 0) {
+      return response.status(400).json(errorsTypeNumber);
+    }
+
+    // Valida a categoria
+    const errorCategory = this.validateCategory(category, seasons, duration);
+
+    if (errorCategory.length > 0) {
+      return response.status(400).json(errorCategory);
+    }
+
+    // Retorna null se não houver erros
+    return null;
+  }
 }
 
 module.exports = new ValidateTypes();

@@ -6,5 +6,6 @@ const router = Router();
 router.get('/productions', ProductionController.index);
 router.get('/productions/:id', ProductionController.show);
 router.post('/productions', ProductionController.store);
+router.put('/productions/:id', ProductionController.update);
 
 module.exports = router;
