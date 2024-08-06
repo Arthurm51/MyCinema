@@ -102,7 +102,7 @@ class ProductionsRepositories {
   delete(id) {
     return new Promise((resolve) => {
       // eslint-disable-next-line no-shadow
-      resolve(productions = productions.filter((productions) => productions.id !== id));
+      resolve(productions = productions.filter((production) => production.id !== id));
     });
   }
 }

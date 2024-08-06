@@ -4,7 +4,7 @@ const ProductionsRepositories = require('../repositories/ProductionsRepositories
 
 const ValidateTypes = require('../../utils/ValidateTypes');
 
-class ProductionController {
+class ProductionsController {
   // Método assíncrono para listar todas as produções
   async index(request, response) {
     const production = await ProductionsRepositories.findAll();
@@ -110,4 +110,4 @@ class ProductionController {
   }
 }
 
-module.exports = new ProductionController();
+module.exports = new ProductionsController();
