@@ -28,7 +28,7 @@ class ProductionsController {
       name, category, gender, year, rating, comment, sinopse, director, cast, ageRating, duration, seasons,
     } = request.body;
 
-    const data = {
+    const requiredFields = {
       name,
       category,
       gender,
@@ -38,15 +38,35 @@ class ProductionsController {
       year,
       rating,
       ageRating,
-      seasons,
-      duration,
     };
 
-    const validationResult = ValidateTypes.validateFields(data, response);
+    const validationResult = ValidateTypes.validateFields(requiredFields, response);
 
     if (validationResult !== null) {
       // Erros de validação já foram tratados dentro da função
       return;
+    }
+
+    const isNumberErrors = ValidateTypes.isNumber({
+      year, rating, ageRating, seasons, duration,
+    });
+
+    if (isNumberErrors.length > 0) {
+      // Retorna uma resposta de erro com os detalhes dos erros
+      return response.status(400).json({
+        errors: isNumberErrors,
+      });
+    }
+
+    if (typeof seasons === 'undefined' && typeof duration === 'undefined') {
+      return response.status(400).json({ error: "Ao menos um dos campos 'seasons' ou 'duration' é obrigatório." });
+    }
+
+    // Valida a categoria
+    const errorCategory = ValidateTypes.validateCategory(category, seasons, duration);
+
+    if (errorCategory.length > 0) {
+      return response.status(400).json(errorCategory);
     }
     // Cria uma nova produção no repositório
     const production = await ProductionsRepositories.create({
@@ -69,7 +89,7 @@ class ProductionsController {
       return response.status(404).json({ error: 'Production not found' });
     }
 
-    const data = {
+    const requiredFields = {
       name,
       category,
       gender,
@@ -79,15 +99,35 @@ class ProductionsController {
       year,
       rating,
       ageRating,
-      seasons,
-      duration,
     };
 
-    const validationResult = ValidateTypes.validateFields(data, response);
+    const validationResult = ValidateTypes.validateFields(requiredFields, response);
 
     if (validationResult !== null) {
       // Erros de validação já foram tratados dentro da função
       return;
+    }
+
+    const isNumberErrors = ValidateTypes.isNumber({
+      year, rating, ageRating, seasons, duration,
+    });
+
+    if (isNumberErrors.length > 0) {
+      // Retorna uma resposta de erro com os detalhes dos erros
+      return response.status(400).json({
+        errors: isNumberErrors,
+      });
+    }
+
+    if (typeof seasons === 'undefined' && typeof duration === 'undefined') {
+      return response.status(400).json({ error: "Ao menos um dos campos 'seasons' ou 'duration' é obrigatório." });
+    }
+
+    // Valida a categoria
+    const errorCategory = ValidateTypes.validateCategory(category, seasons, duration);
+
+    if (errorCategory.length > 0) {
+      return response.status(400).json(errorCategory);
     }
 
     const updateProduction = await ProductionsRepositories.update(id, {
