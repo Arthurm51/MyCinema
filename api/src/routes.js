@@ -20,7 +20,7 @@ router.delete('/genders/:id', GendersController.delete);
 router.get('/cast', CastController.index);
 router.get('/cast/:id', CastController.show);
 router.post('/cast', CastController.store);
-// router.put('/cast/:id', CastController.update);
-// router.delete('/cast/:id', CastController.delete);
+router.put('/cast/:id', CastController.update);
+router.delete('/cast/:id', CastController.delete);
 
 module.exports = router;

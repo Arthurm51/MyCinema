@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+const ValidateTypes = require('../../utils/ValidateTypes');
 const GendersRepositories = require('../repositories/GendersRepositories');
 
 class GendersController {
@@ -22,6 +23,12 @@ class GendersController {
     if (genderExists) {
       return response.status(400).json({ error: 'Gênero já existente' });
     }
+    const requiredFields = ValidateTypes.validateFields({ name }, response);
+
+    if (requiredFields !== null) {
+      // Retorna uma resposta de erro com os detalhes dos erros
+      return;
+    }
     const gender = await GendersRepositories.create({ name });
     response.json(gender);
   }
@@ -37,6 +44,12 @@ class GendersController {
     const genderExists = await GendersRepositories.findByName(name);
     if (genderExists) {
       return response.status(400).json({ error: 'Gênero já existente' });
+    }
+    const requiredFields = ValidateTypes.validateFields({ name }, response);
+
+    if (requiredFields !== null) {
+      // Retorna uma resposta de erro com os detalhes dos erros
+      return;
     }
     const updateGender = await GendersRepositories.update(id, { name });
 

@@ -1,6 +1,6 @@
 const { v4 } = require('uuid');
 
-const cast = [
+let casts = [
   {
     id: v4(),
     name: 'Vin Diesel',
@@ -27,14 +27,14 @@ const cast = [
 class CastRepositories {
   findAll() {
     return new Promise((resolve) => {
-      resolve(cast);
+      resolve(casts);
     });
   }
 
   findById(id) {
     return new Promise((resolve) => {
       // eslint-disable-next-line no-shadow
-      resolve(cast.find((cast) => cast.id === id));
+      resolve(casts.find((cast) => cast.id === id));
     });
   }
 
@@ -60,10 +60,47 @@ class CastRepositories {
         gender,
         nationality,
       };
-      cast.push(newCast);
+
+      casts.push(newCast);
       resolve(newCast);
     });
   }
-}
 
+  update(id, {
+    name,
+    dateOfBirth: {
+      day,
+      month,
+      year,
+    },
+    gender,
+    nationality,
+  }) {
+    return new Promise((resolve) => {
+      const updateCast = {
+        id,
+        name,
+        dateOfBirth: {
+          day,
+          month,
+          year,
+        },
+        gender,
+        nationality,
+      };
+      // eslint-disable-next-line no-shadow
+      casts = casts.map((cast) => (
+        cast.id === id ? updateCast : cast
+      ));
+      resolve(updateCast);
+    });
+  }
+
+  delete(id) {
+    return new Promise((resolve) => {
+      // eslint-disable-next-line no-shadow
+      resolve(casts = casts.filter((cast) => cast.id !== id));
+    });
+  }
+}
 module.exports = new CastRepositories();
