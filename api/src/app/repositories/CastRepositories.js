@@ -3,7 +3,7 @@ const { v4 } = require('uuid');
 let casts = [
   {
     id: v4(),
-    name: 'Vin Diesel',
+    name: 'Pamela Anderson',
     dateOfBirth: {
       day: 21,
       month: 2,
@@ -22,6 +22,18 @@ let casts = [
     },
     gender: 'male',
     nationality: 'American',
+  },
+  {
+    id: v4(),
+    name: 'Pamela Fryman',
+    dateOfBirth: {
+      day: 12,
+      month: 11,
+      year: 1980,
+    },
+    gender: 'female',
+    nationality: 'American',
+    role: true,
   },
 ];
 class CastRepositories {
@@ -47,6 +59,7 @@ class CastRepositories {
     },
     gender,
     nationality,
+    role,
   }) {
     return new Promise((resolve) => {
       const newCast = {
@@ -59,6 +72,7 @@ class CastRepositories {
         },
         gender,
         nationality,
+        role,
       };
 
       casts.push(newCast);

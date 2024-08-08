@@ -22,6 +22,7 @@ class CastController {
       dateOfBirth, // desestruture o objeto principal
       gender,
       nationality,
+      role,
     } = request.body;
     // desestrutura o objeto aninhado separadamente
     const { day, month, year } = dateOfBirth;
@@ -47,6 +48,13 @@ class CastController {
       });
     }
 
+    // eslint-disable-next-line valid-typeof
+    if (role !== undefined && role !== true) {
+      return response.status(400).json({
+        error: 'O valor de role deve ser true',
+      });
+    }
+
     const cast = await CastRepositories.create({
       name,
       dateOfBirth: { // Agrupando as propriedades de data de nascimento
@@ -56,6 +64,7 @@ class CastController {
       },
       gender,
       nationality,
+      role,
     });
     response.json(cast);
   }
