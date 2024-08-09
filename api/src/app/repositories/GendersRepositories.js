@@ -2,12 +2,20 @@ const { v4 } = require('uuid');
 
 let genders = [
   {
-    id: v4(),
+    id: 1,
     name: 'Action',
   },
   {
-    id: v4(),
+    id: 2,
     name: 'Adventure',
+  },
+  {
+    id: 3,
+    name: 'Comedy',
+  },
+  {
+    id: 4,
+    name: 'Romantic',
   },
 ];
 
