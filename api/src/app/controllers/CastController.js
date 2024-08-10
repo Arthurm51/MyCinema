@@ -19,16 +19,17 @@ class CastController {
   async store(request, response) {
     const {
       name,
-      dateOfBirth, // desestruture o objeto principal
+      day,
+      month,
+      year, // desestruture o objeto principal
       gender,
       nationality,
       role,
     } = request.body;
     // desestrutura o objeto aninhado separadamente
-    const { day, month, year } = dateOfBirth;
 
     const data = {
-      name, dateOfBirth, day, month, year, gender, nationality,
+      name, day, month, year, gender, nationality,
     };
 
     const requiredFields = ValidateTypes.validateFields(data, response);
@@ -38,7 +39,7 @@ class CastController {
       return;
     }
 
-    const isNumberErrors = ValidateTypes.isNumber(dateOfBirth);
+    const isNumberErrors = ValidateTypes.isNumber(day, month, year);
 
     // Verifica se o array de erros não está vazio
     if (isNumberErrors.length > 0) {
@@ -57,11 +58,9 @@ class CastController {
 
     const cast = await CastRepositories.create({
       name,
-      dateOfBirth: { // Agrupando as propriedades de data de nascimento
-        day,
-        month,
-        year,
-      },
+      day,
+      month,
+      year,
       gender,
       nationality,
       role,
@@ -73,15 +72,21 @@ class CastController {
     const { id } = request.params;
     const {
       name,
-      dateOfBirth, // desestruture o objeto principal
+      day,
+      month,
+      year,
       gender,
       nationality,
     } = request.body;
     // desestrutura o objeto aninhado separadamente
-    const { day, month, year } = dateOfBirth;
+
+    const cast = await CastRepositories.findById(id);
+    if (!cast) {
+      return response.status(404).json({ error: 'Ator ou atriz não encontrado(a)!' });
+    }
 
     const data = {
-      name, dateOfBirth, day, month, year, gender, nationality,
+      name, day, month, year, gender, nationality,
     };
 
     const requiredFields = ValidateTypes.validateFields(data, response);
@@ -91,7 +96,7 @@ class CastController {
       return;
     }
 
-    const isNumberErrors = ValidateTypes.isNumber(dateOfBirth);
+    const isNumberErrors = ValidateTypes.isNumber(day, month, year);
 
     // Verifica se o array de erros não está vazio
     if (isNumberErrors.length > 0) {
@@ -103,11 +108,9 @@ class CastController {
 
     const updatedCast = await CastRepositories.update(id, {
       name,
-      dateOfBirth: { // Agrupando as propriedades de data de nascimento
-        day,
-        month,
-        year,
-      },
+      day,
+      month,
+      year,
       gender,
       nationality,
     });

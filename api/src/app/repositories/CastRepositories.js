@@ -52,11 +52,9 @@ class CastRepositories {
 
   create({
     name,
-    dateOfBirth: {
-      day,
-      month,
-      year,
-    },
+    day,
+    month,
+    year,
     gender,
     nationality,
     role,
@@ -65,11 +63,9 @@ class CastRepositories {
       const newCast = {
         id: v4(),
         name,
-        dateOfBirth: {
-          day,
-          month,
-          year,
-        },
+        day,
+        month,
+        year,
         gender,
         nationality,
         role,
@@ -82,11 +78,9 @@ class CastRepositories {
 
   update(id, {
     name,
-    dateOfBirth: {
-      day,
-      month,
-      year,
-    },
+    day,
+    month,
+    year,
     gender,
     nationality,
   }) {
@@ -94,11 +88,9 @@ class CastRepositories {
       const updateCast = {
         id,
         name,
-        dateOfBirth: {
-          day,
-          month,
-          year,
-        },
+        day,
+        month,
+        year,
         gender,
         nationality,
       };

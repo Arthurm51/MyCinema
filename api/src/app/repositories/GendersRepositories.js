@@ -1,4 +1,5 @@
 const { v4 } = require('uuid');
+const db = require('../../database/index');
 
 let genders = [
   {
@@ -38,15 +39,14 @@ class GendersRepositories {
     });
   }
 
-  create({ name }) {
-    return new Promise((resolve) => {
-      const newGender = {
-        id: v4(),
-        name,
-      };
-      genders.push(newGender);
-      resolve(newGender);
-    });
+  async create({ name }) {
+    const [row] = await db.query(`
+      INSERT INTO genders(name)
+      VALUES($1)
+      RETURNING *
+    `, [name]);
+
+    return row;
   }
 
   update(id, { name }) {
