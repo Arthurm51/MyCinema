@@ -11,7 +11,7 @@ app.use((error, request, response, next) => {
   // O middleware aceita quatro parâmetros: 'error', 'request', 'response', e 'next'.
   // Este middleware será executado sempre que houver um erro em qualquer parte da aplicação.
 
-  // console.log(error);
+  console.log(error);
   // Exibe o erro no console para facilitar a depuração e o registro.
 
   response.sendStatus(500);
