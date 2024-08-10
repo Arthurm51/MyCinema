@@ -1,5 +1,9 @@
 // Importa o módulo 'pg' que é um cliente para interagir com bancos de dados PostgreSQL.
 // Aqui estamos usando a desestruturação para obter a classe 'Client' do módulo 'pg'.
+
+=======
+// eslint-disable-next-line import/no-unresolved
+
 const { Client } = require('pg');
 
 // Cria uma nova instância do cliente 'Client' e passa um objeto de configuração com
@@ -27,6 +31,7 @@ const client = new Client({
 // Isso inicia a conexão com os parâmetros fornecidos anteriormente.
 client.connect();
 
+
 // Exporta uma função assíncrona chamada 'query' que executa uma consulta SQL
 exports.query = async (query, values) => {
   // Executa a consulta SQL passada como argumento, junto com os valores para os parâmetros, e espera pela conclusão.
@@ -36,3 +41,7 @@ exports.query = async (query, values) => {
   // Retorna as linhas resultantes da consulta SQL
   return rows;
 };
+=======
+// Envia a consulta SQL para o servidor PostgreSQL para ser executada. Quando a consulta é concluída com sucesso, a promessa é resolvida e o método .then() é chamado.
+client.query('SELECT * FROM productions').then(console.log);
+
